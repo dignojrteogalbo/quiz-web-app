@@ -1,5 +1,5 @@
 import './questions.css';
-import { Container, Divider, Header, Grid, Button, Input } from 'semantic-ui-react'
+import { Header, Grid, Segment } from 'semantic-ui-react'
 import React, { Component } from 'react';
 import _ from 'lodash';
 
@@ -12,40 +12,41 @@ class Questions extends Component {
         this.question = props.question;
         this.number = props.number;
         this.responses = props.responses;
-        this.value = props.value;
+
+        this.state = {
+            value: props.value
+        }
     }
 
     handleChange = (e) => {
+        this.setState({ value: e.target.value })
         this.props.setValue(parseInt(e.target.value), (this.number - 1));
     }
 
     render() {
         return (
-            <Container text>
-                <Header as='h3'>{this.number}. {this.question}</Header>
+            <Segment>
+                <Header as='h3' textAlign='left'>{this.number}. {this.question}</Header>
+                <br />
                 <Grid columns={this.responses.length}>
-                <Grid.Row 
-                    relaxed
-                    color={this.color}
-                >
-                    {this.responses.map((response, i) =>
-                        <Grid.Column key={i} textAlign='center'>
-                            <Input
-                                defaultChecked={i === this.value - 1}
-                                type="radio" 
-                                id={`${this.number}${i}`}
-                                name={this.number} 
-                                value={i + 1} 
-                                onChange={this.handleChange}
-                            />
-                            <br />
-                            <label htmlFor={`${this.number}${i}`}>{response}</label>
-                        </Grid.Column>
-                    )}
-                </Grid.Row>
+                    <Grid.Row color={this.color}>
+                        {this.responses.map((response, i) =>
+                            <Grid.Column key={i}>
+                                <input
+                                    defaultChecked={i === this.state.value - 1}
+                                    type="radio" 
+                                    id={`${this.number}${i}`}
+                                    name={this.number} 
+                                    value={i + 1} 
+                                    onChange={this.handleChange}
+                                />
+                                <br />
+                                <label htmlFor={`${this.number}${i}`}>{response}</label>
+                            </Grid.Column>
+                        )}
+                    </Grid.Row>
                 </Grid>
-                <Divider />
-            </Container>
+            </Segment>
         );
     }
 }

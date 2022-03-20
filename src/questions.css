@@ -1,3 +1,51 @@
 label {
     word-wrap: break-word;
 }
+
+input[type="radio"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 2em;
+    height: 2em;
+    margin: calc(0.75em - 11px) 0.25rem 0 0;
+    vertical-align: top;
+    border: 2px solid #ddd;
+    border-radius: 50%;
+    background: #fff no-repeat center center;
+}
+
+input[type="radio"]:active:not(:disabled) {
+    border-color: black;
+    outline: none;
+
+}
+
+input[type="radio"]:focus {
+    border-color: black;
+    outline: none;
+}
+
+input[type="radio"]:disabled {
+    background : #eee;
+}
+
+input[type="radio"]:checked {
+    animation-duration: 0.5s;
+    animation-name: popin;
+    background-image: url('radio.svg');
+    background-size: 75%;
+}
+
+@keyframes popin {
+    from {
+        background-size: 0;
+    }
+
+    60% {
+        background-size: 75%;
+    }
+
+    to {
+        background-size: 75%;
+    }
+}

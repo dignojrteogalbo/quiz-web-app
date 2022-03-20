@@ -1,5 +1,6 @@
 {
     "ip-scale" : {
+        "title": "Clance Imposter Syndrome Scale",
         "questions" : [
             "I have often succeeded on a test or task even though I was afraid that I would not do well before I undertook the task.",
             "I can give the impression that I’m more competent than I really am.",
@@ -22,12 +23,9 @@
             "If I’m going to receive a promotion or gain recognition of some kind, I hesitate to tell others until it is an accomplished fact.",
             "I feel bad and discouraged if I’m not “the best” or at least “very special” in situations that involve achievement."
         ],
-        "responses" : [
-            "Not at all true",
-            "Rarely",
-            "Sometimes",
-            "Often",
-            "Very true"
+        "responses" : 
+        [
+            ["Not at all true", "Rarely", "Sometimes", "Often", "Very true"]
         ],
         "results" : [
             "You have a few impostor characteristics",
@@ -37,6 +35,7 @@
         ]
     },
     "short" : {
+        "title" : "Sample Short Test",
         "questions": 
         [
             "First question",
@@ -45,11 +44,12 @@
         ],
         "responses" :
         [
-            "no",
-            "maybe",
-            "yes"
+            ["no", "maybe", "yes"],
+            ["hello", "world", "!"],
+            ["one", "two", "three"]
         ],
-        "results" : [
+        "results" :
+        [
             "1",
             "2",
             "3",
