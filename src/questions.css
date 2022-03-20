@@ -17,7 +17,6 @@ input[type="radio"] {
 input[type="radio"]:active:not(:disabled) {
     border-color: black;
     outline: none;
-
 }
 
 input[type="radio"]:focus {
@@ -30,6 +29,13 @@ input[type="radio"]:disabled {
 }
 
 input[type="radio"]:checked {
+    animation-duration: 0.5s;
+    animation-name: popin;
+    background-image: url('radio.svg');
+    background-size: 75%;
+}
+
+input[type="radio"]:hover {
     animation-duration: 0.5s;
     animation-name: popin;
     background-image: url('radio.svg');
