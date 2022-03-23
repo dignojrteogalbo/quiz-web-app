@@ -9,9 +9,6 @@ class Questions extends Component {
     constructor(props) {
         super(props);
         this.color = COLORS[props.number % 4];
-        this.question = props.question;
-        this.number = props.number;
-        this.responses = props.responses;
 
         this.state = {
             value: props.value
@@ -20,28 +17,28 @@ class Questions extends Component {
 
     handleChange = (e) => {
         this.setState({ value: e.target.value })
-        this.props.setValue(parseInt(e.target.value), (this.number - 1));
+        this.props.setValue(e.target.value, (this.props.number - 1));
     }
 
     render() {
         return (
             <Segment>
-                <Header as='h3' textAlign='left'>{this.number}. {this.question}</Header>
+                <Header as='h3' textAlign='left'>{this.props.number}. {this.props.question}</Header>
                 <br />
-                <Grid columns={this.responses.length}>
+                <Grid columns={Object.keys(this.props.responses).length}>
                     <Grid.Row color={this.color}>
-                        {this.responses.map((response, i) =>
+                        {Object.keys(this.props.responses).map((key, i) =>
                             <Grid.Column key={i}>
                                 <input
-                                    defaultChecked={i === this.state.value - 1}
-                                    type="radio" 
-                                    id={`${this.number}${i}`}
-                                    name={this.number} 
-                                    value={i + 1} 
+                                    defaultChecked={key === this.state.value}
+                                    type="radio"
+                                    id={`${this.props.number}${key}`}
+                                    name={this.props.number}
+                                    value={key}
                                     onChange={this.handleChange}
                                 />
                                 <br />
-                                <label htmlFor={`${this.number}${i}`}>{response}</label>
+                                <label htmlFor={`${this.props.number}${key}`}>{this.props.responses[key]}</label>
                             </Grid.Column>
                         )}
                     </Grid.Row>

@@ -1,23 +1,30 @@
 import './Quiz.css';
 import React, { Component } from 'react';
 import { Container, Divider, Header, Pagination } from 'semantic-ui-react'
-import _ from 'lodash';
+import _, { max } from 'lodash';
 import Questions from './Questions';
 
 const NUM_QUESTIONS_PER_PAGE = 3;
 
 class Quiz extends Component {
     constructor(props) {
-        super(props)
-        this.pageQuestions = _.chunk(props.quiz.questions, NUM_QUESTIONS_PER_PAGE);
+        super(props);
+        this.pageQuestions = _.chunk(props.quiz["questions"], NUM_QUESTIONS_PER_PAGE);
 
         this.state = {
-            quiz: props.quiz,
             page: 0,
             questions: this.pageQuestions[0],
-            total: [undefined],
-            sum: null
+            total: [],
+            result: null
         }
+    }
+
+    calculateResult = () => {
+        const final = _.compact(this.state.total);
+        let counts = {};
+        final.forEach(value => counts[value] = counts[value] ? counts[value] + 1 : 1);
+        const maxKey = _.maxBy(Object.keys(counts), o => counts[o]);
+        return maxKey;
     }
 
     onPageChange = (event, data) => {
@@ -25,22 +32,23 @@ class Quiz extends Component {
             page: data.activePage - 1,
             questions: this.pageQuestions[data.activePage - 1]
         });
-        console.log(this.state);
     }
 
     setValue = (value, index) => {
         let totals = this.state.total;
         totals[index] = value;
         this.setState({ 
-            total: totals,
-            sum: _.sum(this.state.total) 
+            total: totals
         });
+        if (_.compact(this.state.total).length === this.props.quiz["questions"].length) {
+            this.setState({ result: this.calculateResult() });
+        }
     }
 
     render() {
         return (
             <div className="Quiz">
-                <Header as='h2'>{this.state.quiz.title}</Header>
+                <Header as='h2'>{this.props.quiz.title}</Header>
                 <br />
                 <Container text textAlign='center'>
                     {this.state.questions.map((question, i) =>
@@ -49,7 +57,7 @@ class Quiz extends Component {
                             question={question}
                             number={i + 1 + ((this.state.page) * NUM_QUESTIONS_PER_PAGE)}
                             value={this.state.total[i + ((this.state.page) * NUM_QUESTIONS_PER_PAGE)]}
-                            responses={this.state.quiz["responses"][i + ((this.state.page) * NUM_QUESTIONS_PER_PAGE)] ?? this.state.quiz["responses"][0]}
+                            responses={this.props.quiz["responses"][i + ((this.state.page) * NUM_QUESTIONS_PER_PAGE)] ?? this.props.quiz["responses"][0]}
                             setValue={this.setValue}
                         />
                     )}
@@ -60,22 +68,17 @@ class Quiz extends Component {
                         firstItem={null}
                         lastItem={null}
                         siblingRange={1}
-                        totalPages={Math.ceil(this.state.quiz["questions"].length / NUM_QUESTIONS_PER_PAGE)}
+                        totalPages={Math.ceil(this.props.quiz["questions"].length / NUM_QUESTIONS_PER_PAGE)}
                         onPageChange={this.onPageChange}
                     />
                     <br />
                     <Divider />
-                    {(_.compact(this.state.total).length === this.state.quiz["questions"].length) &&
+                    {this.state.result &&
                         <div>
                             <Header as='h1'>
-                                Your score: {this.state.sum}
+                                Your Result:<br />{this.state.result}
                             </Header>
-                            <p>
-                                {_.inRange(this.state.sum, 0, 41) ? this.state.quiz["results"][0] : ""}
-                                {_.inRange(this.state.sum, 41, 61) ? this.state.quiz["results"][1] : ""}
-                                {_.inRange(this.state.sum, 61, 81) ? this.state.quiz["results"][2] : ""}
-                                {_.inRange(this.state.sum, 81, 100) ? this.state.quiz["results"][3] : ""}
-                            </p>
+                            <p>{this.props.quiz.results[this.state.result]}</p>
                         </div>
                     }
                     <br />

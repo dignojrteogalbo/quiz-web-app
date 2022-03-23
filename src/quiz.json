@@ -24,36 +24,33 @@
             "I feel bad and discouraged if I’m not “the best” or at least “very special” in situations that involve achievement."
         ],
         "responses" : 
-        [
-            ["Not at all true", "Rarely", "Sometimes", "Often", "Very true"]
-        ],
-        "results" : [
-            "You have a few impostor characteristics",
-            "You have moderate impostor syndrome experiences",
-            "You frequently have impostor feelings",
-            "You have intense impostor syndrome experiences"
-        ]
+            [{"A": "Not at all true", "B": "Rarely", "C": "Sometimes", "D": "Often", "E": "Very true"}]
+        ,
+        "results" : {
+            "A": "You have a few impostor characteristics",
+            "B": "You have moderate impostor syndrome experiences",
+            "C": "You frequently have impostor feelings",
+            "D": "You have intense impostor syndrome experiences",
+            "E": "You have intense impostor syndrome experiences"
+        }
     },
     "short" : {
         "title" : "Sample Short Test",
-        "questions": 
-        [
+        "questions": [
             "First question",
             "Second question",
             "Third question"
         ],
-        "responses" :
-        [
-            ["no", "maybe", "yes"],
-            ["hello", "world", "!"],
-            ["one", "two", "three"]
+        "responses" : [
+            {"1": "no", "2": "maybe", "3": "yes"},
+            {"4": "hello", "1": "world", "2": "!"},
+            {"3": "one", "4": "two", "1": "three"}
         ],
-        "results" :
-        [
-            "1",
-            "2",
-            "3",
-            "4"
-        ]
+        "results" : {
+            "1": "1",
+            "2": "2",
+            "3": "3",
+            "4": "4"
+        }
     }
 }
